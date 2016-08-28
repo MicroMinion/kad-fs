@@ -1,6 +1,6 @@
 {
-  "name": "kad-fs",
-  "version": "0.1.0",
+  "name": "kad-fs-thomas",
+  "version": "0.2.0",
   "description": "a simple file based storage adapter for kad",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://gitlab.com/gordonhall/kad-fs#README",
   "dependencies": {
+    "lodash": "^4.15.0",
     "readable-stream": "^2.0.4"
   }
 }

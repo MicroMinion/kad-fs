@@ -7,6 +7,7 @@
 var fs = require('fs');
 var assert = require('assert');
 var stream = require('readable-stream');
+var _ = require('lodash')
 
 /**
  * Constructs a Kad FS storage adapter
@@ -34,6 +35,8 @@ function KadFSAdapter(datadir) {
  * @param {Function} callback
  */
 KadFSAdapter.prototype.get = function(key, callback) {
+  assert(_.isString(key), 'key is not a valid string')
+  assert(_.isFunction(callback), 'callback is not a valid function')
   var self = this;
   key = new Buffer(key, 'utf8').toString('base64');
   fs.exists(self.datadir + key, function(exists) {
@@ -45,7 +48,6 @@ KadFSAdapter.prototype.get = function(key, callback) {
       if (err) {
         return callback(err);
       }
-
       callback(null, contents.toString());
     });
   });
@@ -59,6 +61,9 @@ KadFSAdapter.prototype.get = function(key, callback) {
  * @param {Function} callback
  */
 KadFSAdapter.prototype.put = function(key, value, callback) {
+  assert(_.isString(key), 'key is not a valid string')
+  assert(!callback || _.isFunction(callback), 'callback is not a valid function')
+  assert(_.isString(value), 'value is not a valid string')
   key = new Buffer(key, 'utf8').toString('base64');
   fs.writeFile(this.datadir + key, value, callback);
 };
@@ -70,6 +75,8 @@ KadFSAdapter.prototype.put = function(key, value, callback) {
  * @param {Function} callback
  */
 KadFSAdapter.prototype.del = function(key, callback) {
+  assert(_.isString(key), 'key is not a valid string')
+  assert(!callback || _.isFunction(callback), 'callback is not a valid function')
   var self = this;
   key = new Buffer(key, 'utf8').toString('base64');
 
